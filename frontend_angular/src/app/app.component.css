@@ -1,0 +1,10 @@
+/* src/app/app.component.css */
+.app-container {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
