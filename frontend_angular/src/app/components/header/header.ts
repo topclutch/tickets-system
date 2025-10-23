@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-header',
-  imports: [],
-  templateUrl: './header.html',
-  styleUrl: './header.css'
-=======
 import { Component } from "@angular/core"
 import { RouterLink, RouterLinkActive } from "@angular/router"
 
@@ -154,8 +145,5 @@ import { RouterLink, RouterLinkActive } from "@angular/router"
     }
   `,
   ],
->>>>>>> Stashed changes
 })
-export class Header {
-
-}
+export class HeaderComponent {}
