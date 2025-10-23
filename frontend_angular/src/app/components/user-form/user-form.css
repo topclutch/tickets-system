@@ -1,0 +1,18 @@
+.user-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-card-actions {
+  padding: 16px 24px;
+  margin: 0;
+}

@@ -1,0 +1,68 @@
+.user-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+mat-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.users-table {
+  width: 100%;
+}
+
+.role-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.role-admin { background-color: #ffcdd2; color: #c62828; }
+.role-support { background-color: #fff3e0; color: #f57c00; }
+.role-user { background-color: #e8f5e8; color: #388e3c; }
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.loading-container,
+.error-container,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.loading-container mat-spinner {
+  margin-bottom: 20px;
+}
+
+.error-container mat-icon,
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin: 16px 0 8px 0;
+  color: #666;
+}
+
+.empty-state p {
+  margin-bottom: 24px;
+  color: #999;
+}

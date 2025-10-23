@@ -1,1 +1,90 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <h1>🎫 Dashboard - Sistema de Tickets</h1>
+  <p>Bienvenido al sistema de tickets. Aquí puedes ver un resumen rápido de la actividad reciente.</p>
+
+  <div class="stats-grid">
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>confirmation_number</mat-icon>
+        <mat-card-title>Total Tickets</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ ticketsService.tickets().length }}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets">Ver Todos</a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>people</mat-icon>
+        <mat-card-title>Total Usuarios</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ usersService.users().length }}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/users">Ver Todos</a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="warn">priority_high</mat-icon>
+        <mat-card-title>Tickets Abiertos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ openTickets() }}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets">Ver Abiertos</a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="accent">trending_up</mat-icon>
+        <mat-card-title>En Progreso</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ inProgressTickets() }}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets">Ver En Progreso</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="recent-section">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Tickets Recientes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ng-container *ngIf="recentTickets().length > 0; else noTickets">
+          <div class="recent-tickets">
+            <div class="ticket-item" *ngFor="let ticket of recentTickets()">
+              <h4>{{ ticket.title }}</h4>
+              <p>{{ ticket.description | slice:0:100 }}...</p>
+              <div class="ticket-meta">
+                <span class="status" [ngClass]="'status-' + ticket.status">
+                  {{ getStatusLabel(ticket.status) }}
+                </span>
+                <span class="priority" [ngClass]="'priority-' + ticket.priority">
+                  {{ getPriorityLabel(ticket.priority) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noTickets>
+          <p>No hay tickets recientes</p>
+        </ng-template>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets/new">Crear Nuevo Ticket</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

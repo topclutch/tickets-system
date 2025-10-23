@@ -1,1 +1,88 @@
-<p>ticket-form works!</p>
+<div class="ticket-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ isEditMode() ? "Editar Ticket" : "Nuevo Ticket" }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="title" placeholder="Ingresa el título del ticket">
+            <mat-error *ngIf="ticketForm.get('title')?.hasError('required') && ticketForm.get('title')?.touched">
+              El título es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" placeholder="Describe el problema o solicitud" rows="4"></textarea>
+            <mat-error *ngIf="ticketForm.get('description')?.hasError('required') && ticketForm.get('description')?.touched">
+              La descripción es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Prioridad</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option value="low">Baja</mat-option>
+              <mat-option value="medium">Media</mat-option>
+              <mat-option value="high">Alta</mat-option>
+              <mat-option value="urgent">Urgente</mat-option>
+            </mat-select>
+            <mat-error *ngIf="ticketForm.get('priority')?.hasError('required') && ticketForm.get('priority')?.touched">
+              La prioridad es requerida
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="isEditMode()">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="open">Abierto</mat-option>
+              <mat-option value="in_progress">En Progreso</mat-option>
+              <mat-option value="closed">Cerrado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <mat-select formControlName="user_id">
+              <mat-option *ngFor="let user of usersService.users()" [value]="user.id">
+                {{ user.name }} ({{ user.email }})
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="ticketForm.get('user_id')?.hasError('required') && ticketForm.get('user_id')?.touched">
+              El usuario es requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Asignado a</mat-label>
+            <mat-select formControlName="assigned_to">
+              <mat-option [value]="null">Sin asignar</mat-option>
+              <mat-option *ngFor="let user of supportUsers()" [value]="user.id">
+                {{ user.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button type="button" (click)="goBack()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="ticketForm.invalid || loading()">
+        {{ loading() ? "Guardando..." : isEditMode() ? "Actualizar" : "Crear" }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
