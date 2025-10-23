@@ -1,1 +1,118 @@
+<<<<<<< Updated upstream
 <p>ticket-form works!</p>
+=======
+<div class="ticket-form-container">
+  <mat-card class="form-card">
+    <mat-card-header class="form-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">{{ isEditMode() ? 'edit' : 'add_circle' }}</mat-icon>
+        <mat-card-title class="form-title">
+          {{ isEditMode() ? "Edit Ticket" : "Create New Ticket" }}
+        </mat-card-title>
+      </div>
+      <p class="form-subtitle">{{ isEditMode() ? "Update ticket information" : "Fill in the details to create a new ticket" }}</p>
+    </mat-card-header>
+
+    <mat-card-content class="form-content">
+      <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+        <div class="form-section">
+          <label class="section-label">Basic Information</label>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title" placeholder="Enter a descriptive title">
+              <mat-icon matPrefix>title</mat-icon>
+              <mat-error *ngIf="ticketForm.get('title')?.hasError('required') && ticketForm.get('title')?.touched">
+                Title is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" placeholder="Describe the issue or request in detail" rows="5"></textarea>
+              <mat-icon matPrefix>description</mat-icon>
+              <mat-error *ngIf="ticketForm.get('description')?.hasError('required') && ticketForm.get('description')?.touched">
+                Description is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="section-label">Classification</label>
+          
+          <div class="form-row-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Priority</mat-label>
+              <mat-select formControlName="priority">
+                <mat-option value="low">🟢 Low</mat-option>
+                <mat-option value="medium">🟡 Medium</mat-option>
+                <mat-option value="high">🟠 High</mat-option>
+                <mat-option value="urgent">🔴 Urgent</mat-option>
+              </mat-select>
+              <mat-icon matPrefix>flag</mat-icon>
+              <mat-error *ngIf="ticketForm.get('priority')?.hasError('required') && ticketForm.get('priority')?.touched">
+                Priority is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" *ngIf="isEditMode()">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-option value="open">📋 Open</mat-option>
+                <mat-option value="in_progress">⚙️ In Progress</mat-option>
+                <mat-option value="closed">✅ Closed</mat-option>
+              </mat-select>
+              <mat-icon matPrefix>info</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="section-label">Assignment</label>
+          
+          <div class="form-row-group">
+            <mat-form-field appearance="outline">
+              <mat-label>User</mat-label>
+              <mat-select formControlName="user_id">
+                <mat-option *ngFor="let user of usersService.users()" [value]="user.id">
+                  {{ user.name }} ({{ user.email }})
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-error *ngIf="ticketForm.get('user_id')?.hasError('required') && ticketForm.get('user_id')?.touched">
+                User is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Assigned to</mat-label>
+              <mat-select formControlName="assigned_to">
+                <mat-option [value]="null">Unassigned</mat-option>
+                <mat-option *ngFor="let user of supportUsers()" [value]="user.id">
+                  {{ user.name }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>support_agent</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions class="form-actions">
+      <button mat-stroked-button type="button" (click)="goBack()" class="cancel-button">
+        <mat-icon>close</mat-icon>
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="ticketForm.invalid || loading()" class="submit-button">
+        <mat-icon>{{ loading() ? 'hourglass_empty' : (isEditMode() ? 'save' : 'add') }}</mat-icon>
+        {{ loading() ? "Saving..." : isEditMode() ? "Update Ticket" : "Create Ticket" }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+>>>>>>> Stashed changes

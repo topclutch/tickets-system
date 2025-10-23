@@ -1,1 +1,128 @@
+<<<<<<< Updated upstream
 <p>dashboard works!</p>
+=======
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1 class="dashboard-title">Dashboard</h1>
+      <p class="dashboard-subtitle">Welcome back! Here's what's happening with your tickets today.</p>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <mat-card class="stat-card stat-card-primary">
+      <mat-card-content>
+        <div class="stat-icon-wrapper primary">
+          <mat-icon class="stat-icon">confirmation_number</mat-icon>
+        </div>
+        <div class="stat-details">
+          <div class="stat-number">{{ ticketsService.tickets().length }}</div>
+          <div class="stat-label">Total Tickets</div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets" class="stat-action">
+          View all
+          <mat-icon class="action-icon">arrow_forward</mat-icon>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card stat-card-success">
+      <mat-card-content>
+        <div class="stat-icon-wrapper success">
+          <mat-icon class="stat-icon">people</mat-icon>
+        </div>
+        <div class="stat-details">
+          <div class="stat-number">{{ usersService.users().length }}</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/users" class="stat-action">
+          View all
+          <mat-icon class="action-icon">arrow_forward</mat-icon>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card stat-card-warning">
+      <mat-card-content>
+        <div class="stat-icon-wrapper warning">
+          <mat-icon class="stat-icon">priority_high</mat-icon>
+        </div>
+        <div class="stat-details">
+          <div class="stat-number">{{ openTickets() }}</div>
+          <div class="stat-label">Open Tickets</div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets" class="stat-action">
+          View open
+          <mat-icon class="action-icon">arrow_forward</mat-icon>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card stat-card-info">
+      <mat-card-content>
+        <div class="stat-icon-wrapper info">
+          <mat-icon class="stat-icon">trending_up</mat-icon>
+        </div>
+        <div class="stat-details">
+          <div class="stat-number">{{ inProgressTickets() }}</div>
+          <div class="stat-label">In Progress</div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button routerLink="/tickets" class="stat-action">
+          View progress
+          <mat-icon class="action-icon">arrow_forward</mat-icon>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="recent-section">
+    <mat-card class="recent-card">
+      <mat-card-header class="recent-header">
+        <div class="header-title-section">
+          <mat-icon class="header-icon">schedule</mat-icon>
+          <mat-card-title>Recent Tickets</mat-card-title>
+        </div>
+        <a mat-raised-button color="primary" routerLink="/tickets/new" class="create-button">
+          <mat-icon>add</mat-icon>
+          Create Ticket
+        </a>
+      </mat-card-header>
+      <mat-card-content>
+        <ng-container *ngIf="recentTickets().length > 0; else noTickets">
+          <div class="recent-tickets">
+            <div class="ticket-item" *ngFor="let ticket of recentTickets()">
+              <div class="ticket-header">
+                <h4 class="ticket-title">{{ ticket.title }}</h4>
+                <div class="ticket-badges">
+                  <span class="badge status-badge" [ngClass]="'status-' + ticket.status">
+                    {{ getStatusLabel(ticket.status) }}
+                  </span>
+                  <span class="badge priority-badge" [ngClass]="'priority-' + ticket.priority">
+                    {{ getPriorityLabel(ticket.priority) }}
+                  </span>
+                </div>
+              </div>
+              <p class="ticket-description">{{ ticket.description | slice:0:120 }}...</p>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noTickets>
+          <div class="empty-state">
+            <mat-icon class="empty-icon">inbox</mat-icon>
+            <p class="empty-text">No recent tickets</p>
+            <p class="empty-subtext">Create your first ticket to get started</p>
+          </div>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+>>>>>>> Stashed changes

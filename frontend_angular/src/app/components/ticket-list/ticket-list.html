@@ -1,1 +1,135 @@
+<<<<<<< Updated upstream
 <p>ticket-list works!</p>
+=======
+<div class="ticket-list-container">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <mat-icon class="page-icon">confirmation_number</mat-icon>
+        <div>
+          <h1 class="page-title">Tickets</h1>
+          <p class="page-subtitle">Manage and track all support tickets</p>
+        </div>
+      </div>
+      <a mat-raised-button color="primary" routerLink="/tickets/new" class="create-button">
+        <mat-icon>add</mat-icon>
+        New Ticket
+      </a>
+    </div>
+  </div>
+
+  <mat-card class="list-card">
+    <mat-card-content>
+      <ng-container *ngIf="ticketsService.loading(); else loaded">
+        <div class="loading-container">
+          <mat-spinner diameter="48"></mat-spinner>
+          <p class="loading-text">Loading tickets...</p>
+        </div>
+      </ng-container>
+
+      <ng-template #loaded>
+        <ng-container *ngIf="ticketsService.error(); else tableOrEmpty">
+          <div class="error-container">
+            <mat-icon class="error-icon">error_outline</mat-icon>
+            <h3 class="error-title">Oops! Something went wrong</h3>
+            <p class="error-message">{{ ticketsService.error() }}</p>
+            <button mat-raised-button color="primary" (click)="loadTickets()" class="retry-button">
+              <mat-icon>refresh</mat-icon>
+              Try Again
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-template #tableOrEmpty>
+          <ng-container *ngIf="ticketsService.tickets().length > 0; else emptyState">
+            <div class="table-container">
+              <table mat-table [dataSource]="ticketsService.tickets()" class="tickets-table">
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef class="id-column">ID</th>
+                  <td mat-cell *matCellDef="let ticket" class="id-cell">#{{ ticket.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                  <th mat-header-cell *matHeaderCellDef>Ticket Details</th>
+                  <td mat-cell *matCellDef="let ticket">
+                    <div class="ticket-details">
+                      <span class="ticket-title">{{ ticket.title }}</span>
+                      <small class="ticket-description">{{ ticket.description | slice:0:80 }}...</small>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef>Status</th>
+                  <td mat-cell *matCellDef="let ticket">
+                    <span class="status-chip" [ngClass]="'status-' + ticket.status">
+                      {{ getStatusLabel(ticket.status) }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="priority">
+                  <th mat-header-cell *matHeaderCellDef>Priority</th>
+                  <td mat-cell *matCellDef="let ticket">
+                    <span class="priority-chip" [ngClass]="'priority-' + ticket.priority">
+                      {{ getPriorityLabel(ticket.priority) }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="user">
+                  <th mat-header-cell *matHeaderCellDef>User</th>
+                  <td mat-cell *matCellDef="let ticket">
+                    <div class="user-info">
+                      <mat-icon class="user-icon">account_circle</mat-icon>
+                      <span>{{ ticket.user ? ticket.user.name : 'User #' + ticket.user_id }}</span>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="created_at">
+                  <th mat-header-cell *matHeaderCellDef>Created</th>
+                  <td mat-cell *matCellDef="let ticket" class="date-cell">
+                    {{ ticket.created_at | date:'MMM d, y' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef class="actions-column">Actions</th>
+                  <td mat-cell *matCellDef="let ticket">
+                    <div class="actions">
+                      <a mat-icon-button [routerLink]="['/tickets/edit', ticket.id]" class="edit-button" matTooltip="Edit ticket">
+                        <mat-icon>edit</mat-icon>
+                      </a>
+                      <button mat-icon-button (click)="deleteTicket(ticket)" class="delete-button" matTooltip="Delete ticket">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+              </table>
+            </div>
+          </ng-container>
+
+          <ng-template #emptyState>
+            <div class="empty-state">
+              <div class="empty-icon-wrapper">
+                <mat-icon class="empty-icon">inbox</mat-icon>
+              </div>
+              <h3 class="empty-title">No tickets yet</h3>
+              <p class="empty-text">Get started by creating your first support ticket</p>
+              <a mat-raised-button color="primary" routerLink="/tickets/new" class="empty-action">
+                <mat-icon>add</mat-icon>
+                Create First Ticket
+              </a>
+            </div>
+          </ng-template>
+        </ng-template>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>
+>>>>>>> Stashed changes
