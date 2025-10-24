@@ -15,6 +15,22 @@ Frontend built with **Angular** and backend built with **Flask (Python)**. This 
 
 ---
 
+## 🖼️ Screenshots
+
+> Click any screenshot to open the full-resolution image.
+
+### Dashboard  
+[![Dashboard](img/dashboard.png)](https://raw.githubusercontent.com/topclutch/tickets-system/main/img/dashboard.png)  
+
+### Tickets  
+[![Tickets](img/tickets.png)](https://raw.githubusercontent.com/topclutch/tickets-system/main/img/tickets.png)  
+
+### Users  
+[![Users](img/users.png)](https://raw.githubusercontent.com/topclutch/tickets-system/main/img/users.png)  
+
+### Create Ticket  
+[![Create Ticket](img/createticketfrm.png)](https://raw.githubusercontent.com/topclutch/tickets-system/main/img/createticketfrm.png)  
+---
 ## 🧭 Prerequisites
 
 - Node.js >= 16 and npm
