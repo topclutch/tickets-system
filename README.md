@@ -1,8 +1,7 @@
 # 🧾 Tickets System
 
 Full-stack web application for ticket/support management.  
-Frontend built with **Angular** and backend built with **Flask (Python)**. This README explains how to install, run and contribute to the project.
-
+Frontend built with **Angular** and backend built with **Flask (Python)**
 ---
 
 ## 📁 Repository structure
